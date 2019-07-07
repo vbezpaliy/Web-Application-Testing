@@ -7,6 +7,7 @@ XXE — атака на приложения, обрабатывающие XML.
 При подобной «слепой» инъекции можно использовать японский/PT вектор.
 
 https://mohemiv.com/all/evil-xml-with-two-encodings/
+https://intsystem.org/security/xml-data-retrieval/
 
 -------------------------------------------------------------
 Vanilla, used to verify outbound xxe or blind xxe
