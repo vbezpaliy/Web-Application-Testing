@@ -1,0 +1,32 @@
+nmap -sS -sV -vv -sC -p 0-65535 -O -Pn -oA "scan" 192.168.0.1/24. 
+
+открытый 22 порт SSH и пробуем подобрать пароль от сервиса
+
+nmap -p22 --script ssh-brute site.test.lan
+
+ftp
+
+nmap -p21 --script ftp-syst site.test.lan
+
+Если использовать команду nmap --script=auth, то к хосту будут применены по очереди все скрипты из раздела auth.
+Когда форма авторизации найдена, попробуем подобрать пароль к какой-нибудь учетной записи, используя очередной скрипт http-form-brute:
+
+nmap -p-80 --script=http-form-brute --script-args=http-form-brute.path=/wp-login.php site.test.lan
+
+Поищем на сайте страницы с авторизацией, если они есть
+
+nmap -p80 --script http-auth-finder site.test.lan
+
+Далее произведем перебор пользователей FTP-сервера:
+
+nmap -p21 192.168.60.50 --script ftp-brute --script-args userdb=/root/user.txt,passdb=/root/pass.txt
+
+Скрипт mysql-info покажет некоторую информацию о MySQL (для этого необходимо запустить Nmap с ключами -sV -sC):
+
+nmap -p3306 -sV -sC site.test.lan
+
+Скрипт подключается к серверу MySQL и выводит информацию, такую как номер протокола и версии, идентификатор потока, состояние, возможности и соль пароля.
+
+Помимо этого, мы можем перечислить «валидных» пользователей MySQL:
+
+nmap -p3306 --script mysql-enum site.test.lan
