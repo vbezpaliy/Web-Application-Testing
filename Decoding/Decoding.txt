@@ -1,0 +1,3 @@
+echo -n jKJKKHKJShkjahkjLKjsJHLKJslkjlksa | base64 -d
+
+echo -n jKJKKHKJShkjahkjLKjsJHLKJslkjlksa | base64 -d | base64 -d
