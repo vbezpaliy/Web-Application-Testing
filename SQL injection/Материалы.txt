@@ -1,0 +1,29 @@
+Материалы.
+
+SQL.
+
+    http://rutracker.org/forum/viewtopic.php?t=4621035
+    http://rutracker.org/forum/viewtopic.php?t=129425
+    Lynn Beighley. Head first SQL
+    Алан Бьюли. Изучаем SQL
+    http://dev.mysql.com/doc/
+    https://msdn.microsoft.com/ru-ru/library/bb545450.aspx
+    http://www.oracle.com/technetwork/ru/database/express-edition/documentation/index.html
+    https://www.sqlite.org/docs.html
+    http://postgresql.ru.net/manual/
+
+ SQL-инъекции
+
+    https://rdot.org/forum/
+    https://rdot.org/forum/showthread.php?t=124
+    http://forum.antichat.ru/threadedpost3817395.html (1500 страниц практических примеров)
+    http://www.securityidiots.com/Web-Pentest/SQL-Injection/
+    PentestIT - SQL инъекции
+    http://www.securitytube.net/tags/SQLi
+    http://www.websec.ca/kb/sql_injection
+    http://ptsecurity.ru/download/PT-devteev-Advanced-SQL-Injection.pdf
+    http://pentestmonkey.net/category/cheat-sheet/sql-injection
+    http://www.sqlinjectionwiki.com/
+    http://sqligenerator.altervista.org/index.php (генератор ссылок на уязвимые ресурсы)
+    Юрий Жуков. Основы веб-хакинга
+    Justin Clarke. SQL injection. Attacks and Defense.
