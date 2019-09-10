@@ -1,0 +1,36 @@
+Linux Debian
+
+nmap -sC -sV -oA 10.10.10.133
+ 
+********
+Conect to sftp
+sftp user@10.10.10.133
+pass:*******
+>ls
+
+Подготавливаем файл на загрузку 
+<?php phpinfo(); ?>
+
+upload file to 10....133
+in the 10.....133
+sftp> put test.php - this file get in directory you laptop
+afte that you go to browser and open this file, but you need remember where you upload
+
+we have filter and nid chang file .php .php7 .txt and test how work in browser.
+we can chang ruls 
+sftp> chmod 755 test.php7  - but in these cays don't work we have good filtered
+another vector attacks it is stmlink!!!
+sftp>symlink / pleaseSubscribe - go to the browser and open 10.10.10.133/~otp-yZjFkZWY/pleaseSubscribe
+we find a lot of directory in server
+
+sftp>symlink /var/www/html/index.php index.txt
+and we can see in browser this page
+
+we fined www directory location index.file and when we use proxi we can download file login.file.swp
+
+login.file.swp - this file is temporart. the create we vi open file in vim we get + file .swp. We need change name file in .login.file.swp - need add
+dot front the name file. and tray to recover file login.file.swp
+
+https://www.youtube.com/watch?v=EXuEDHFjS9E 19:29
+
+
