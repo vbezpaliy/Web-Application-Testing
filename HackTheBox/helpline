@@ -1,0 +1,14 @@
+smbmap -H 10.10.10.132
+smbmap -H 10.10.10.132 -u anonymous
+
+Поиск пользователя.
+wfuzz -w /usr/share/seclist/Username/top-usrname-shortlist.txt -u 'http://10.10.10.132:8080/domainServlet/AJaxDomain.............&search=FUZZ'
+
+cmd /c ping -n 1 10.10.10.132
+tcpdump -i tun0 icmp 
+
+
+python -m SimpleHTTPServer 80
+
+
+nc -lvnp 9001
