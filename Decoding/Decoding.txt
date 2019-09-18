@@ -4,3 +4,10 @@ echo -n jKJKKHKJShkjahkjLKjsJHLKJslkjlksa | base64 -d | base64 -d
 
 Hash
 https://hashes.org/search.php
+
+hashcat --example-hashes
+нам нужно определить по какому алгоритму зашифровано, как правило по начальным значениям можно определить как зашифровано
+ищим совпадения. 1800 или другой 
+
+./hashcat -m 1800 hashcat/lin.shadow /opt/wordlist/rockyou.txt
+hashcat/lin.shadow - передайом файл с хешами(каждый хеш должен начинаться с новой строки)
