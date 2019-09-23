@@ -1,0 +1,4 @@
+nmap -sC -sV -oA 10.10.10.129
+gobuster dir -w /usr/share/dirbu....
+
+
