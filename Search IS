@@ -32,5 +32,15 @@ curl http://target.com
 wget -O- --header"headername:value" http://target.com
 curl -H "headername:value" http://target.com
 
+Версия кода
+svn checkout http://svn.target.org/egro/trunk/alias/default
 
+ls egro
+ls egro/.svn/ - тут может быть полезная информация.
+
+LFI
+...
+$name=GET('fn');
+print(loadfile($name));
+...
 
