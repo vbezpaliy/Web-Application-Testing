@@ -84,7 +84,9 @@ SELECT id FROM users WHERE user='alex' -- .' and password ='1234'
 после .' and password ='1234'запрос будет обросан и мы должны получить id успешную авторизацию, но как правило
 такие пользователи ыз маленькой привилегией.
 
+ https://www.youtube.com/watch?v=Go5W7cYKq4w&list=PLrCZzMib1e9owORdnWTvZIkSCqRFFbHGA&index=5
  
+ ******************************************************************
 
 
 
