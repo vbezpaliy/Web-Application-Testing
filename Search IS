@@ -1,0 +1,36 @@
+host google.com
+
+telnet google.com 80
+Get / HTTp/1.1
+Host: google.com
+
+
+nc google.com 80
+GET / HTTP/1.1
+Host: google.com
+
+bash
+echo "GET /$1 HTTP/1.1"
+echo "Host: $2"
+echo ""
+
+//$1, 2 переменный вводить в строке
+
+
+Подключаемся по SSl
+openssl s_client -connect e.mail.ru:443
+.
+.
+.
+GET /robots.txt HTTP/1.1
+Host: e.mail.ru
+
+Инструменты
+wget -O http://traget.com
+curl http://target.com
+
+wget -O- --header"headername:value" http://target.com
+curl -H "headername:value" http://target.com
+
+
+
