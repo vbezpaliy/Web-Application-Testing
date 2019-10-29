@@ -84,3 +84,7 @@ binwalk IMG_90909.JPG
 for i in $(ls *.JPG); do keepass2john -k $i MyPasswords.kdbx | sed "s/myPassword/$i/g" >> keypass_hashes; done
 
 ./hashcat -m 13400 -O hashes/keypass_hashes /opt/wordlist/rockyou.txt --user
+
+подключаемся к кейпасс
+
+kpcli --kdb Mypasswords.kdbx
