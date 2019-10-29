@@ -58,4 +58,29 @@ wq!
 Получить область памяти objdump -D | grep -i system
 objdump -D | grep -i test
 
+-------------------------------------------------------------
 
+После переполнения буфера попадаем на целивую тачку
+
+Скопируем все файлы
+
+scp -i ../safe user@10.10.10.147:* .
+
+********************************************
+
+Анализ картинок 
+exiftool *.JPG
+
+binwalk IMG_90909.JPG
+
+////////////////////////////////////////////
+
+Ломаем парольное хранилище
+/user/sbin/keepass2john MyPasswords.kdbx
+/user/sbin/keepass2john MyPasswords.kdbx >> keypass_hashes
+
+получим хеш всех файлов
+
+for i in $(ls *.JPG); do keepass2john -k $i MyPasswords.kdbx | sed "s/myPassword/$i/g" >> keypass_hashes; done
+
+./hashcat -m 13400 -O hashes/keypass_hashes /opt/wordlist/rockyou.txt --user
