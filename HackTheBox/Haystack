@@ -1,0 +1,7 @@
+https://www.youtube.com/watch?v=oGO9MEIz_tI
+
+nmap -sC - sV -oA 10.10.10.115
+
+На сервисе есть картинка, проведем анализ 
+
+exiftool needle.jpg
