@@ -62,6 +62,18 @@ history -c
 $>sudo vi /var/log/auth.log
 Здесь можно найти список всех, кто пытался подключиться к серверу по SSH.
 
+Смотрим лог /var/log/messages, с возможностью прокрутки:
+less /var/log/messages
+Просмотр логов Linux, в реальном времени:
+tail -f /var/log/messages
+Открываем лог файл dmesg:
+cat /var/log/dmesg
+Первые строки dmesg:
+head /var/log/dmesg
+Выводим только ошибки из /var/log/messages:
+grep -i error /var/log/messages
+
+
 ▍IP-адреса
 
 Для того, чтобы выяснить IP-адреса, с которых подключались к серверу, воспользуйтесь такой командой:
