@@ -1,0 +1,8 @@
+https://github.com/HackerUniverse/ScreamingCobra
+
+https://www.youtube.com/watch?v=VUgFDbyXHf4
+
+https://github.com/hahwul/dalfox
+https://hakin9.org/dalfox-parameter-analysis-and-xss-scanning-tool-based-on-golang/
+
+
